@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="164.204" height="173.143" viewBox="0 0 164.204 173.143">
+  <defs>
+    <filter id="Ellipse_1" x="47.16" y="49.099" width="69.62" height="80.823" filterUnits="userSpaceOnUse">
+      <feOffset dy="40" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_1" x="0" y="0" width="164.204" height="173.143" filterUnits="userSpaceOnUse">
+      <feOffset dy="40" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="steering-wheel" transform="translate(30)">
+    <g transform="matrix(1, 0, 0, 1, -30, 0)" filter="url(#Ellipse_1)">
+      <ellipse id="Ellipse_1-2" data-name="Ellipse 1" cx="4.81" cy="5.411" rx="4.81" ry="5.411" transform="translate(77.16 49.1)" fill="#ffd428"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, -30, 0)" filter="url(#Path_1)">
+      <path id="Path_1-2" data-name="Path 1" d="M52.1,0C23.414,0,0,23.177,0,51.571s23.415,51.571,52.1,51.571,52.1-23.177,52.1-51.571S80.789,0,52.1,0Zm0,12.289A39.626,39.626,0,0,1,91.32,45.528H80.732a24.12,24.12,0,0,1-17.5-7.315,15.383,15.383,0,0,0-22.266,0,24.12,24.12,0,0,1-17.5,7.315H12.885A39.626,39.626,0,0,1,52.1,12.289Zm0,51.37a9.066,9.066,0,1,1,9.159-9.065A9.123,9.123,0,0,1,52.1,63.659ZM15.146,65.894c3.495-1.357,6.018-2.235,9.48-2.235a18.209,18.209,0,0,1,18.11,20.848h-.007a17.93,17.93,0,0,1-1.446,4.864A39.724,39.724,0,0,1,15.146,65.894ZM62.924,89.37a17.885,17.885,0,0,1-1.448-4.863h-.007a18.264,18.264,0,0,1,22.46-20.334,44.92,44.92,0,0,1,5.13,1.721A39.723,39.723,0,0,1,62.924,89.37Z" transform="translate(30)" fill="#ffd428"/>
+    </g>
+  </g>
+</svg>
