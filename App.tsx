@@ -7,18 +7,22 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import DriverScreen from './src/Driver/DriverScreen';
 import { StatusBar } from 'expo-status-bar';
-
-const Stack = createStackNavigator();
+import PassengerScreen from './src/Passenger/PassengerScreen';
+import { ScreenParamList } from './src/types/ScreenParamList';
 
 const theme = {
   ...DefaultTheme,
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#FFF',
+    placeholder: 'white',
+    text: 'white',
+    primary: 'white',
+    background: '#FFD428',
   },
 };
 
+const Stack = createStackNavigator<ScreenParamList>();
 export default function App() {
   return (
     <PaperProvider theme={theme}>
@@ -30,6 +34,7 @@ export default function App() {
         >
           <Stack.Screen name='Home' component={HomeScreen} />
           <Stack.Screen name='Driver' component={DriverScreen} />
+          <Stack.Screen name='Passenger' component={PassengerScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

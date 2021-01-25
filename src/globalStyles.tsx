@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-const globalSyles = StyleSheet.create({
+const globalStyles = StyleSheet.create({
   btnText: {
     color: '#FFD428',
     fontSize: 20,
@@ -12,4 +12,4 @@ const globalSyles = StyleSheet.create({
   },
 });
 
-export default globalSyles;
+export default globalStyles;

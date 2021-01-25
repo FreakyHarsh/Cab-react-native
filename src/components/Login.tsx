@@ -18,9 +18,6 @@ function Login() {
         backgroundColor: '#FFD428',
         height: '100%',
         padding: 30,
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
       }}
     >
       <TextInput
@@ -51,9 +48,9 @@ function Login() {
             background: '#FFD428',
           },
         }}
-        style={{ marginBottom: 10 }}
+        style={{ marginBottom: 20, borderRadius: 10 }}
       />
-      <Button mode='contained' onPress={() => {}} style={globalStyles.btn}>
+      <Button mode='contained' onPress={() => {}} style={[globalStyles.btn, { width: '100%' }]}>
         <Text style={globalStyles.btnText}>Login</Text>
       </Button>
     </View>

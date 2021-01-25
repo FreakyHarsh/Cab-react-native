@@ -1,19 +1,17 @@
 import React from 'react';
-import { View, Dimensions } from 'react-native';
-
+import { View, Text, Dimensions } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import WheelLogo from '../components/WheelLogo';
 import Login from '../components/Login';
 import SignUp from '../components/SignUp';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreenParamList, ScreenNavProps } from '../types/ScreenParamList';
+import WheelLogo from '../components/WheelLogo';
 
-function DriverScreen({ navigation }: ScreenNavProps<'Driver'>) {
+function PassengerScreen() {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'Login', title: 'Login' },
     { key: 'SignUp', title: 'Sign Up' },
   ]);
+
   const renderTabBar = (props) => (
     <TabBar
       {...props}
@@ -33,7 +31,7 @@ function DriverScreen({ navigation }: ScreenNavProps<'Driver'>) {
         navigationState={{ index, routes }}
         renderScene={SceneMap({
           Login: Login,
-          SignUp: (): any => <SignUp isDriver />,
+          SignUp: (): any => <SignUp />,
         })}
         onIndexChange={setIndex}
         initialLayout={{ width: Dimensions.get('window').width }}
@@ -43,4 +41,4 @@ function DriverScreen({ navigation }: ScreenNavProps<'Driver'>) {
   );
 }
 
-export default DriverScreen;
+export default PassengerScreen;
