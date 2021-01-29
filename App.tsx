@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppState, StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './src/HomeScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,10 +11,13 @@ import PassengerScreen from './src/Passenger/PassengerScreen';
 import { ScreenParamList } from './src/types/ScreenParamList';
 import BookingScreen from './src/Passenger/BookingScreen';
 import BookingSuccess from './src/Passenger/BookingSuccess';
-
+import { AppStateGlobal } from './src/store/store';
 import firebase from 'firebase';
 import ApiKeys from './src/ApiKeys';
-import { Actions, useStore } from './src/store/store';
+
+// Added to remove multiple minutes warning
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer']);
 
 const theme = {
   ...DefaultTheme,
@@ -36,19 +39,21 @@ export default function App() {
   }, []);
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar style='light' />
-        <Stack.Navigator
-          screenOptions={{ headerTitleAlign: 'center', header: () => null }}
-          initialRouteName='Home'
-        >
-          <Stack.Screen name='Home' component={HomeScreen} />
-          <Stack.Screen name='Driver' component={DriverScreen} />
-          <Stack.Screen name='Passenger' component={PassengerScreen} />
-          <Stack.Screen name='Booking' component={BookingScreen} />
-          <Stack.Screen name='BookingSuccess' component={BookingSuccess} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <AppStateGlobal>
+        <NavigationContainer>
+          <StatusBar style='light' />
+          <Stack.Navigator
+            screenOptions={{ headerTitleAlign: 'center', header: () => null }}
+            initialRouteName='Home'
+          >
+            <Stack.Screen name='Home' component={HomeScreen} />
+            <Stack.Screen name='Driver' component={DriverScreen} />
+            <Stack.Screen name='Passenger' component={PassengerScreen} />
+            <Stack.Screen name='Booking' component={BookingScreen} />
+            <Stack.Screen name='BookingSuccess' component={BookingSuccess} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AppStateGlobal>
     </PaperProvider>
   );
 }

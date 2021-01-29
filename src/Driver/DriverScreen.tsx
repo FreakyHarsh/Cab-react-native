@@ -5,8 +5,7 @@ import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import WheelLogo from '../components/WheelLogo';
 import Login from '../components/Login';
 import SignUp from '../components/SignUp';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreenParamList, ScreenNavProps } from '../types/ScreenParamList';
+import { ScreenNavProps } from '../types/ScreenParamList';
 
 function DriverScreen({ navigation }: ScreenNavProps<'Driver'>) {
   const [index, setIndex] = React.useState(0);
@@ -32,8 +31,8 @@ function DriverScreen({ navigation }: ScreenNavProps<'Driver'>) {
       <TabView
         navigationState={{ index, routes }}
         renderScene={SceneMap({
-          Login: Login,
-          SignUp: (): any => <SignUp isDriver />,
+          Login: (): any => <Login goToMainScreen={() => navigation.navigate('Home')} />,
+          SignUp: (): any => <SignUp goToMainScreen={() => navigation.navigate('Home')} isDriver />,
         })}
         onIndexChange={setIndex}
         initialLayout={{ width: Dimensions.get('window').width }}

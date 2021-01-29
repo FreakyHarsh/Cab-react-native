@@ -32,8 +32,8 @@ function PassengerScreen({ navigation }: ScreenNavProps<'Passenger'>) {
       <TabView
         navigationState={{ index, routes }}
         renderScene={SceneMap({
-          Login: (): any => <Login login={() => navigation.navigate('Booking')} />,
-          SignUp: (): any => <SignUp />,
+          Login: (): any => <Login goToMainScreen={() => navigation.navigate('Booking')} />,
+          SignUp: (): any => <SignUp goToMainScreen={() => navigation.navigate('Booking')} />,
         })}
         onIndexChange={setIndex}
         initialLayout={{ width: Dimensions.get('window').width }}

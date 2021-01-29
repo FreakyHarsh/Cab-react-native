@@ -1,11 +1,18 @@
 import React, { FC, useContext, useReducer } from 'react';
-const initialState = {
-  db: {},
-};
 
 export enum Actions {
-  setDb = 'setDb',
+  setName = 'setDb',
+  setCarNumber = 'setCarNumer',
+  setTotalSeats = 'setTotalSeats',
+  setPhoneNumber = 'setPhoneNumber',
 }
+
+const initialState = {
+  name: '',
+  carNumber: '',
+  totalSeats: '',
+  phoneNumber: '',
+};
 
 const Context = React.createContext({
   state: initialState,
@@ -14,10 +21,25 @@ const Context = React.createContext({
 
 const reducer = (state, action): any => {
   switch (action.type) {
-    case Actions.setDb:
+    case Actions.setName:
       return {
         ...state,
-        db: action.payload,
+        name: action.payload,
+      };
+    case Actions.setCarNumber:
+      return {
+        ...state,
+        carNumber: action.payload,
+      };
+    case Actions.setTotalSeats:
+      return {
+        ...state,
+        totalSeats: action.payload,
+      };
+    case Actions.setPhoneNumber:
+      return {
+        ...state,
+        phoneNumber: action.payload,
       };
 
     default:
@@ -25,7 +47,7 @@ const reducer = (state, action): any => {
   }
 };
 
-export const AppState: FC = ({ children }) => {
+export const AppStateGlobal: FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>;
 };

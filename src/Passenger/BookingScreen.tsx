@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text } from 'react-native';
 import { Card, TextInput, IconButton, Button } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import globalStyles from '../globalStyles';
 import { ScreenNavProps } from '../types/ScreenParamList';
+import { useStore } from '../store/store';
+import firebase from 'firebase';
 
 function BookingScreen({ navigation }: ScreenNavProps<'BookingSuccess'>) {
   const [pickLocation, setPickLocation] = useState('');
   const [dropLocation, setDropLocation] = useState('');
-  const [noOfSeats, setNoOfSeats] = useState('');
+  const [noOfSeats, setNoOfSeats] = useState('4');
   const [expectedAmount, setExpectedAmount] = useState('');
+  const {
+    state: { phoneNumber, name },
+    dispatch,
+  } = useStore();
   return (
     <View
       style={{
@@ -29,7 +35,6 @@ function BookingScreen({ navigation }: ScreenNavProps<'BookingSuccess'>) {
           alignItems: 'center',
         }}
       >
-        {/* <ScrollView> */}
         <Text
           style={{
             textAlign: 'center',
@@ -38,7 +43,7 @@ function BookingScreen({ navigation }: ScreenNavProps<'BookingSuccess'>) {
             fontWeight: '700',
           }}
         >
-          Hello Harsh
+          Hello {name}
         </Text>
         <Text style={{ fontSize: 20, color: '#86847B', textAlign: 'center', marginBottom: 30 }}>
           Let's book a ride
@@ -129,7 +134,21 @@ function BookingScreen({ navigation }: ScreenNavProps<'BookingSuccess'>) {
         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20 }}>
           <Button
             mode='contained'
-            onPress={() => navigation.navigate('BookingSuccess')}
+            onPress={() => {
+              firebase
+                .firestore()
+                .collection('tours')
+                .add({
+                  from: pickLocation,
+                  to: dropLocation,
+                  requiredSeats: noOfSeats,
+                  expectedAmount: expectedAmount,
+                  passengerPhoneNumber: phoneNumber,
+                  passengerName: name,
+                })
+                .then((res) => navigation.navigate('BookingSuccess'))
+                .catch((error) => console.log(error));
+            }}
             style={{
               width: '80%',
               backgroundColor: '#FFD428',
@@ -141,7 +160,6 @@ function BookingScreen({ navigation }: ScreenNavProps<'BookingSuccess'>) {
             <Text style={{ color: '#FFF', fontSize: 20 }}>Book your ride</Text>
           </Button>
         </View>
-        {/* </ScrollView> */}
       </Card>
     </View>
   );

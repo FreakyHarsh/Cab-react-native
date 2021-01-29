@@ -3,16 +3,44 @@ import { ScrollView, Text, View } from 'react-native';
 import { TextInput, Button, IconButton } from 'react-native-paper';
 import { Icon } from 'react-native-paper/lib/typescript/components/Avatar/Avatar';
 import globalStyles from '../globalStyles';
-
-function SignUp({ isDriver }: { isDriver?: boolean }) {
+import firebase from 'firebase';
+interface SignUpProps {
+  isDriver?: boolean;
+  goToMainScreen: () => void;
+}
+function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
   const [email, setEmail] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [hidePwd, setHidePwd] = useState(true);
   const [carNumber, setCarNumber] = useState('');
   const [totalSeats, setTotalSeats] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 
+  const onSignUp = () => {
+    const setCommonData = {
+      name: name,
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber,
+    };
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        firebase
+          .firestore()
+          .collection(isDriver ? 'drivers' : 'passengers')
+          .doc(firebase?.auth()?.currentUser?.uid)
+          .set(
+            isDriver
+              ? { ...setCommonData, carNumber: carNumber, totalSeats: totalSeats }
+              : setCommonData
+          );
+        result && goToMainScreen();
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <ScrollView
       style={{
@@ -24,13 +52,13 @@ function SignUp({ isDriver }: { isDriver?: boolean }) {
       <TextInput
         label='Name'
         mode='outlined'
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={(text) => setName(text)}
         style={{ marginBottom: 20 }}
       />
       <TextInput
         label='Email'
         mode='outlined'
-        onChangeText={(text) => setFullName(text)}
+        onChangeText={(text) => setEmail(text)}
         style={{ marginBottom: 20 }}
       />
       <View>
@@ -102,7 +130,7 @@ function SignUp({ isDriver }: { isDriver?: boolean }) {
           />
         </>
       )}
-      <Button mode='contained' onPress={() => {}} style={[globalStyles.btn, { width: '100%' }]}>
+      <Button mode='contained' onPress={onSignUp} style={[globalStyles.btn, { width: '100%' }]}>
         <Text style={globalStyles.btnText}>Sign Up</Text>
       </Button>
       <View style={{ height: 50 }} />
