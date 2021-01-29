@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function Login() {
+function Login({ login }: { login: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
@@ -50,7 +50,7 @@ function Login() {
         }}
         style={{ marginBottom: 20, borderRadius: 10 }}
       />
-      <Button mode='contained' onPress={() => {}} style={[globalStyles.btn, { width: '100%' }]}>
+      <Button mode='contained' onPress={login} style={[globalStyles.btn, { width: '100%' }]}>
         <Text style={globalStyles.btnText}>Login</Text>
       </Button>
     </View>

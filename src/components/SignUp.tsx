@@ -22,7 +22,7 @@ function SignUp({ isDriver }: { isDriver?: boolean }) {
       }}
     >
       <TextInput
-        label='Full Name'
+        label='Name'
         mode='outlined'
         onChangeText={(text) => setEmail(text)}
         style={{ marginBottom: 20 }}
