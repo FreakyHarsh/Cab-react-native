@@ -5,16 +5,8 @@ import TourCard from '../components/TourCard';
 import { ScreenNavProps } from '../types/ScreenParamList';
 import firebase from 'firebase';
 import { v4 as uuidv4 } from 'uuid';
+import { TourObj } from '../types/TourObj';
 
-interface TourObj {
-  id: string;
-  expectedAmount: string;
-  from: string;
-  to: string;
-  passengerName: string;
-  requiredSeats: string;
-  passengerPhoneNumber: string;
-}
 function TourList({ navigation }: ScreenNavProps<'TourList'>) {
   const [tours, setTours] = useState<TourObj[]>();
 
@@ -26,9 +18,7 @@ function TourList({ navigation }: ScreenNavProps<'TourList'>) {
         docSnapshot.forEach((item) =>
           fetchedTourList.push({ ...item.data(), id: item.id } as TourObj)
         );
-        docSnapshot.forEach((item) => console.log(item.id));
         setTours(fetchedTourList);
-        console.log(tours);
       },
       (err) => {
         console.log(`Encountered error: ${err}`);
@@ -45,8 +35,7 @@ function TourList({ navigation }: ScreenNavProps<'TourList'>) {
         data={tours}
         renderItem={({ item }) => (
           <TourCard
-            // onAccept={() => navigation.navigate('AcceptTour')}
-            onAccept={() => console.log(item.id)}
+            onAccept={() => navigation.navigate('AcceptTour', item)}
             expectedAmount={item.expectedAmount}
             from={item.from}
             to={item.to}

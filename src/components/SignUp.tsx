@@ -44,7 +44,6 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
         result && goToMainScreen();
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
       });
   };

@@ -33,7 +33,6 @@ function Login({ goToMainScreen, isDriver }: { goToMainScreen: () => void; isDri
           })
       )
       .catch((result) => {
-        console.log(result);
         setLoading(false);
       });
   };

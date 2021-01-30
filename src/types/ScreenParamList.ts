@@ -1,5 +1,6 @@
 import { RouteProp } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
+import { TourObj } from "./TourObj"
 
 export type ScreenParamList = {
   Home: undefined;
@@ -8,7 +9,7 @@ export type ScreenParamList = {
   Booking: undefined;
   BookingSuccess: undefined;
   TourList: undefined;
-  AcceptTour: undefined;
+  AcceptTour: TourObj;
 }
 
 
