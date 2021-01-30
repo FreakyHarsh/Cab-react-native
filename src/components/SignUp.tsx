@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { TextInput, Button, IconButton } from 'react-native-paper';
-import { Icon } from 'react-native-paper/lib/typescript/components/Avatar/Avatar';
 import globalStyles from '../globalStyles';
 import firebase from 'firebase';
+import { Picker } from '@react-native-picker/picker';
 interface SignUpProps {
   isDriver?: boolean;
   goToMainScreen: () => void;
@@ -14,7 +14,7 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
   const [password, setPassword] = useState('');
   const [hidePwd, setHidePwd] = useState(true);
   const [carNumber, setCarNumber] = useState('');
-  const [totalSeats, setTotalSeats] = useState('');
+  const [totalSeats, setTotalSeats] = useState('4');
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const onSignUp = () => {
@@ -66,14 +66,6 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
           label='Password'
           mode='outlined'
           onChangeText={(text) => setPassword(text)}
-          theme={{
-            colors: {
-              placeholder: 'white',
-              text: 'white',
-              primary: 'white',
-              background: '#FFD428',
-            },
-          }}
           secureTextEntry={hidePwd}
           style={{ marginBottom: 20, flex: 1 }}
         />
@@ -81,14 +73,6 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
           icon={hidePwd ? 'eye-off' : 'eye'}
           size={29}
           onPress={() => setHidePwd(!hidePwd)}
-          theme={{
-            colors: {
-              placeholder: 'white',
-              text: 'white',
-              primary: 'white',
-              background: '#FFD428',
-            },
-          }}
           style={{ position: 'absolute', zIndex: 1, right: 0, top: 7 }}
         />
       </View>
@@ -104,30 +88,20 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
             label='Car number'
             mode='outlined'
             onChangeText={(text) => setCarNumber(text)}
-            theme={{
-              colors: {
-                placeholder: 'white',
-                text: 'white',
-                primary: 'white',
-                background: '#FFD428',
-              },
-            }}
             style={{ marginBottom: 20 }}
           />
-          <TextInput
-            label='Total Seats'
-            mode='outlined'
-            onChangeText={(text) => setTotalSeats(text)}
-            theme={{
-              colors: {
-                placeholder: 'white',
-                text: 'white',
-                primary: 'white',
-                background: '#FFD428',
-              },
-            }}
-            style={{ marginBottom: 30 }}
-          />
+          <Text style={{ color: 'white' }}>Total No of Seats:</Text>
+          <View style={{ borderWidth: 1, borderColor: '#FFF', marginBottom: 30 }}>
+            <Picker
+              selectedValue={totalSeats}
+              style={{ width: '100%', color: '#FFF' }}
+              onValueChange={(itemValue) => setTotalSeats(itemValue as string)}
+            >
+              <Picker.Item label='4' value='4' />
+              <Picker.Item label='6' value='6' />
+              <Picker.Item label='8' value='8' />
+            </Picker>
+          </View>
         </>
       )}
       <Button mode='contained' onPress={onSignUp} style={[globalStyles.btn, { width: '100%' }]}>

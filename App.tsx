@@ -17,6 +17,7 @@ import ApiKeys from './src/ApiKeys';
 
 // Added to remove multiple minutes warning
 import { LogBox } from 'react-native';
+import TourList from './src/Driver/TourList';
 LogBox.ignoreLogs(['Setting a timer']);
 
 const theme = {
@@ -51,6 +52,7 @@ export default function App() {
             <Stack.Screen name='Passenger' component={PassengerScreen} />
             <Stack.Screen name='Booking' component={BookingScreen} />
             <Stack.Screen name='BookingSuccess' component={BookingSuccess} />
+            <Stack.Screen name='TourList' component={TourList} />
           </Stack.Navigator>
         </NavigationContainer>
       </AppStateGlobal>

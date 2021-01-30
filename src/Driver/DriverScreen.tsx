@@ -31,8 +31,12 @@ function DriverScreen({ navigation }: ScreenNavProps<'Driver'>) {
       <TabView
         navigationState={{ index, routes }}
         renderScene={SceneMap({
-          Login: (): any => <Login goToMainScreen={() => navigation.navigate('Home')} />,
-          SignUp: (): any => <SignUp goToMainScreen={() => navigation.navigate('Home')} isDriver />,
+          Login: (): any => (
+            <Login goToMainScreen={() => navigation.navigate('TourList')} isDriver />
+          ),
+          SignUp: (): any => (
+            <SignUp goToMainScreen={() => navigation.navigate('TourList')} isDriver />
+          ),
         })}
         onIndexChange={setIndex}
         initialLayout={{ width: Dimensions.get('window').width }}

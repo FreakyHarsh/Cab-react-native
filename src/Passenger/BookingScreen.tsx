@@ -110,7 +110,6 @@ function BookingScreen({ navigation }: ScreenNavProps<'BookingSuccess'>) {
               <Picker.Item label='4' value='4' />
               <Picker.Item label='6' value='6' />
               <Picker.Item label='8' value='8' />
-              <Picker.Item label='10' value='10' />
             </Picker>
           </View>
           <View

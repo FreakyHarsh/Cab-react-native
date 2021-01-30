@@ -8,6 +8,7 @@ export type ScreenParamList = {
   Passenger: undefined;
   Booking: undefined;
   BookingSuccess: undefined;
+  TourList: undefined;
 }
 
 
