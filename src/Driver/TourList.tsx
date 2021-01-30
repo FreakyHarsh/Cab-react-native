@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import { v4 as uuidv4 } from 'uuid';
 
 interface TourObj {
+  id: string;
   expectedAmount: string;
   from: string;
   to: string;
@@ -22,7 +23,10 @@ function TourList({ navigation }: ScreenNavProps<'TourList'>) {
     const observer = doc.onSnapshot(
       (docSnapshot) => {
         const fetchedTourList: TourObj[] = [];
-        docSnapshot.forEach((item) => fetchedTourList.push(item.data() as TourObj));
+        docSnapshot.forEach((item) =>
+          fetchedTourList.push({ ...item.data(), id: item.id } as TourObj)
+        );
+        docSnapshot.forEach((item) => console.log(item.id));
         setTours(fetchedTourList);
         console.log(tours);
       },
@@ -30,9 +34,6 @@ function TourList({ navigation }: ScreenNavProps<'TourList'>) {
         console.log(`Encountered error: ${err}`);
       }
     );
-    // return () => {
-    //   observer
-    // }
   }, []);
   return (
     <View style={{ padding: 20, alignItems: 'center', height: '100%' }}>
@@ -40,20 +41,12 @@ function TourList({ navigation }: ScreenNavProps<'TourList'>) {
       <Headline style={{ color: '#FFD428', fontWeight: '700' }}>Hello Driver</Headline>
       <Caption style={{ color: '#808080' }}>Let's pick someone</Caption>
       <Text style={{ marginTop: 20, marginBottom: 10 }}>Pick up request near you</Text>
-      {/* <TourCard
-        onAccept={() => navigation.navigate('AcceptTour')}
-        expectedAmount='444'
-        from='thane'
-        to='bhandup'
-        passengerName='harsh'
-        passengerPhoneNumber='12323123'
-        requiredSeats='5'
-      /> */}
       <FlatList
         data={tours}
         renderItem={({ item }) => (
           <TourCard
-            onAccept={() => navigation.navigate('AcceptTour')}
+            // onAccept={() => navigation.navigate('AcceptTour')}
+            onAccept={() => console.log(item.id)}
             expectedAmount={item.expectedAmount}
             from={item.from}
             to={item.to}
