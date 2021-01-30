@@ -43,7 +43,7 @@ export default function App() {
     <PaperProvider theme={theme}>
       <AppStateGlobal>
         <NavigationContainer>
-          <StatusBar style='light' />
+          <StatusBar style='dark' />
           <Stack.Navigator
             screenOptions={{ headerTitleAlign: 'center', header: () => null }}
             initialRouteName='Home'
