@@ -4,6 +4,7 @@ import { TextInput, Button, IconButton } from 'react-native-paper';
 import globalStyles from '../globalStyles';
 import firebase from 'firebase';
 import { Picker } from '@react-native-picker/picker';
+import LoadingButton from './LoadingButton';
 interface SignUpProps {
   isDriver?: boolean;
   goToMainScreen: () => void;
@@ -16,6 +17,7 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
   const [carNumber, setCarNumber] = useState('');
   const [totalSeats, setTotalSeats] = useState('4');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onSignUp = () => {
     const setCommonData = {
@@ -24,6 +26,7 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
       password: password,
       phoneNumber: phoneNumber,
     };
+    setLoading(true);
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -37,9 +40,13 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
               ? { ...setCommonData, carNumber: carNumber, totalSeats: totalSeats }
               : setCommonData
           );
+        setLoading(false);
         result && goToMainScreen();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   };
   return (
     <ScrollView
@@ -104,9 +111,14 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
           </View>
         </>
       )}
-      <Button mode='contained' onPress={onSignUp} style={[globalStyles.btn, { width: '100%' }]}>
-        <Text style={globalStyles.btnText}>Sign Up</Text>
-      </Button>
+      {loading ? (
+        <LoadingButton loading={loading} />
+      ) : (
+        <Button mode='contained' onPress={onSignUp} style={[globalStyles.btn, { width: '100%' }]}>
+          <Text style={globalStyles.btnText}>Sign Up</Text>
+        </Button>
+      )}
+
       <View style={{ height: 50 }} />
     </ScrollView>
   );

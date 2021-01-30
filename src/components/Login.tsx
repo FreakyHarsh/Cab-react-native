@@ -6,12 +6,6 @@ import globalStyles from '../globalStyles';
 import { Actions, useStore } from '../store/store';
 import LoadingButton from './LoadingButton';
 
-const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-  },
-});
-
 function Login({ goToMainScreen, isDriver }: { goToMainScreen: () => void; isDriver?: boolean }) {
   const { state, dispatch } = useStore();
   const [email, setEmail] = useState('');
