@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import { TextInput, Button, IconButton } from 'react-native-paper';
+import { TextInput, Button, IconButton, Caption } from 'react-native-paper';
 import globalStyles from '../globalStyles';
 import firebase from 'firebase';
 import { Picker } from '@react-native-picker/picker';
@@ -18,6 +18,8 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
   const [totalSeats, setTotalSeats] = useState('4');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const onSignUp = () => {
     const setCommonData = {
@@ -43,8 +45,11 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
         setLoading(false);
         result && goToMainScreen();
       })
-      .catch((error) => {
+      .catch((err) => {
         setLoading(false);
+        setErrorMsg(err.message);
+        setError(true);
+        console.log(err);
       });
   };
   return (
@@ -67,6 +72,9 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
         onChangeText={(text) => setEmail(text)}
         style={{ marginBottom: 20 }}
       />
+      <Caption>
+        <Text style={{ color: '#808080' }}>Password (min 6 characters)</Text>
+      </Caption>
       <View>
         <TextInput
           label='Password'
@@ -97,9 +105,10 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
             style={{ marginBottom: 20 }}
           />
           <Text style={{ color: 'white' }}>Total No of Seats:</Text>
-          <View style={{ borderWidth: 1, borderColor: '#FFF', marginBottom: 30 }}>
+          <View style={{ borderWidth: 1, borderColor: '#FFF', marginBottom: 20 }}>
             <Picker
               selectedValue={totalSeats}
+              dropdownIconColor='#FFFFFF'
               style={{ width: '100%', color: '#FFF' }}
               onValueChange={(itemValue) => setTotalSeats(itemValue as string)}
             >
@@ -109,6 +118,11 @@ function SignUp({ isDriver, goToMainScreen }: SignUpProps) {
             </Picker>
           </View>
         </>
+      )}
+      {error && (
+        <Caption style={{ textAlign: 'center' }}>
+          <Text style={{ color: 'red' }}>{'*' + errorMsg}</Text>
+        </Caption>
       )}
       {loading ? (
         <LoadingButton loading={loading} />

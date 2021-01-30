@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { TextInput, Button, IconButton } from 'react-native-paper';
+import { TextInput, Button, IconButton, Caption } from 'react-native-paper';
 import globalStyles from '../globalStyles';
 import { Actions, useStore } from '../store/store';
 import LoadingButton from './LoadingButton';
@@ -12,6 +12,8 @@ function Login({ goToMainScreen, isDriver }: { goToMainScreen: () => void; isDri
   const [password, setPassword] = useState('');
   const [hidePwd, setHidePwd] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const onLogin = () => {
     setLoading(true);
@@ -32,8 +34,10 @@ function Login({ goToMainScreen, isDriver }: { goToMainScreen: () => void; isDri
             goToMainScreen();
           })
       )
-      .catch((result) => {
+      .catch((err) => {
         setLoading(false);
+        setError(true);
+        setErrorMsg(err.message);
       });
   };
   return (
@@ -65,7 +69,17 @@ function Login({ goToMainScreen, isDriver }: { goToMainScreen: () => void; isDri
           style={{ position: 'absolute', zIndex: 1, right: 0, top: 7 }}
         />
       </View>
-
+      {error && (
+        <Caption style={{ textAlign: 'center' }}>
+          <Text
+            style={{
+              color: 'red',
+            }}
+          >
+            {'*' + errorMsg}
+          </Text>
+        </Caption>
+      )}
       {loading ? (
         <LoadingButton loading={loading} />
       ) : (
